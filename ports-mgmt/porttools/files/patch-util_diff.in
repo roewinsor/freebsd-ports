@@ -1,0 +1,21 @@
+--- util_diff.in.orig	2011-09-27 16:19:35.000000000 +0200
++++ util_diff.in	2011-09-27 16:23:05.000000000 +0200
+@@ -42,7 +42,7 @@
+ # Determine if this is a new port
+ if [ "${MODE}" = "" ]
+ then
+-	[ "`grep '\$FreeBSD: ' Makefile`" ] || MODE="new"
++	[ "`grep '\$FreeBSD' Makefile`" ] || MODE="new"
+ fi
+ 
+ # Create a temporary dir for generated files (patch/shar, PR form)
+@@ -91,6 +91,9 @@
+ 		fi
+ 
+ 		DIFF_CMD="cvs -R diff -uN"
++	elif [ "${DIFF_MODE}" = "GIT" ]
++	then
++		DIFF_CMD="git diff HEAD ."
+ 	else 
+ 		# Non-CVS modes
+ 		if [ -d ${DIFF_MODE} ]
